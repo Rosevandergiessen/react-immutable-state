@@ -12,6 +12,7 @@ function App() {
   }
 
   const deleteWorkout = (workout) => {
+    setWorkouts(workouts.filter(item => item !== workout))
     console.log("deleteWorkout:", workout)
   }
 
