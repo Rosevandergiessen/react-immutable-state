@@ -5,6 +5,7 @@ import { Workout } from "./Workout.js"
 
 function App() {
   const [workouts, setWorkouts] = useState(initialWorkouts)
+  const [checkbox, setCheckbox] = useState(false)
 
   const addNewWorkout = () => {
     const newWorkout = generateWorkout()
@@ -31,9 +32,7 @@ function App() {
     // to allow the user to toggle between all workouts and only workouts that are done.
 
   const handleChange = (e) => {
-    // workouts.map(item => item.done === true ? {...item} : {})
-
-    console.log(e.target.checked)
+    setCheckbox(e.target.checked)
   }
 
   return (
@@ -43,7 +42,9 @@ function App() {
       <input type="checkbox" onChange={ e => handleChange(e)}/>
       <label>Show Done Only</label>
       <ul>
-        {workouts.map((workout, index) => (
+        {!checkbox ?
+        (workouts
+          .map((workout, index) => (
           <Workout
             workout = {workout}
             key = {index}
@@ -51,7 +52,17 @@ function App() {
             completeWorkout = {completeWorkout}
             deleteWorkout = {deleteWorkout}
           />
-        ))}
+        ))) : (workouts.filter((workout) => workout.done === true)
+          .map((workout, index) => (
+            <Workout
+            workout = {workout}
+            key = {index}
+            replaceWorkout = {replaceWorkout}
+            completeWorkout = {completeWorkout}
+            deleteWorkout = {deleteWorkout}
+          />
+        )))
+        }
       </ul>
     </div>
   )
