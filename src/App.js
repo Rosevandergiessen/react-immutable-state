@@ -21,6 +21,14 @@ function App() {
     console.log("completeWorkout:", workout)
   }
 
+  const replaceWorkout = (workout) => {
+    const newWorkout = generateWorkout()
+    setWorkouts(workouts.map(item => item === workout ? {...newWorkout} : {...item}))
+    console.log("replacedWorkout: ", workout)
+  }
+    // Add a checkbox with the label "Show Done Only"
+    // to allow the user to toggle between all workouts and only workouts that are done.
+
   return (
     <div className="App">
       <h1>🏋️‍♀️Workout Generator</h1>
@@ -31,11 +39,12 @@ function App() {
             <p>
               {workout.sets}x sets of <strong>{workout.reps}x{workout.exercise}</strong> with {workout.rest} seconds rest
             </p>
+            <button onClick={e => replaceWorkout(workout)}>Replace</button>
             {!workout.done &&
               <button onClick={e=>completeWorkout(workout)}>Done</button>}
             {workout.done &&
               <p>✅</p>}
-            <button onClick={e=>deleteWorkout(workout)}>Delete</button>
+            <button onClick={e =>deleteWorkout(workout)}>Delete</button>
           </li>
         ))}
       </ul>
