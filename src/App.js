@@ -17,6 +17,7 @@ function App() {
   }
 
   const completeWorkout = (workout) => {
+    setWorkouts(workouts.map(item => item === workout ? {...item, done: true} : {...item}))
     console.log("completeWorkout:", workout)
   }
 
@@ -38,7 +39,6 @@ function App() {
           </li>
         ))}
       </ul>
-
     </div>
   )
 }
